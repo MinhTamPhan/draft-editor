@@ -23,15 +23,23 @@ export default  class HTMLConvertExample extends React.Component {
 		this.state = {
 			editorState: EditorState.createEmpty(
 				decorator
-			),
+			),			
 		};
-		this.focus = () => this.refs.editor.focus();
-		this.onChange = (editorState) => this.setState({editorState});
+		this.focus = () => {
+			this.domEditor.focus();
+		}
+		this.onChange = (editorState) => {
+      this.setState({editorState});			
+		}
 		this.logState = () => {
 			const content = this.state.editorState.getCurrentContent();
 			console.log(content)
 			console.log(convertToRaw(content));
 		};
+		this.setDomEditorRef = ref => this.domEditor = ref;
+	}
+	componentDidMount(){
+		this.domEditor.focus()
 	}
 	render() {
 		return (
@@ -42,8 +50,7 @@ export default  class HTMLConvertExample extends React.Component {
 				<div style={styles.editor} onClick={this.focus}>
 					<Editor
 						editorState={this.state.editorState}
-						onChange={this.onChange}
-						ref='editor'
+						onChange={this.onChange} ref={this.setDomEditorRef}
 					/>
 				</div>
 				<input
