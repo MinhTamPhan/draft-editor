@@ -43,7 +43,7 @@ export default  class HTMLConvertExample extends React.Component {
 					<Editor
 						editorState={this.state.editorState}
 						onChange={this.onChange}
-						ref="editor"
+						ref='editor'
 					/>
 				</div>
 				<input

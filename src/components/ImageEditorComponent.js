@@ -13,8 +13,15 @@ const styles = {
 	},
 	divAction: {
 		textAlign: 'center',
-		position: 'absolute',	
-		width: '50%',
+		position: 'absolute'
+	},
+	inputNote: {
+		color: '#007477',
+		borderRadius: '2px',
+		fontSize: '12px',
+		width: '400px',
+		textAlign: 'center',
+		marginTop: '-35px'
 	}
 };
 
@@ -22,17 +29,20 @@ class Image extends Component {
 	constructor( props ) {
 		super(props);
 		const { src } = props.contentState.getEntity(props.entityKey).getData();
+		this.focus = () => this.refs.inputNote.focus();
 		this.state = {
 			src: src,
-			isMouseInside: true
+			isMouseInside: false
 		}
 	}
+
+
 
 	mouseEnter = () => {
 		this.setState({ isMouseInside: true });
 	}
 	mouseLeave = () => {
-		this.setState({ isMouseInside: true });
+		this.setState({ isMouseInside: false });
 	}
 
 	render() {
@@ -47,10 +57,13 @@ class Image extends Component {
 		}
 		return (
 			<div style={styles.divImage} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-				{this.state.isMouseInside ? <ButtonAction/> : null} 				
-				<img className='d-block mx-auto' src={this.state.src} width='100%' />
+				{this.state.isMouseInside ? <ButtonAction/> : null} 					
+				<img src={this.state.src} width='100%'/>			
+				<div style={styles.inputNote}>
+					<input type='text' ref='inputNote'/>
+				</div>			
 				<br/>
-				<span style={styles.noteImage}>note</span>
+			<button onClick={this.focus} >xóa</button>
 			</div>
 		);
 	}
